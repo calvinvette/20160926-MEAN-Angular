@@ -18,6 +18,39 @@ angular.module('myApp.view1', ['ngRoute'])
 
   $scope.customers = [];
 
+  $scope.workingCustomer = { customerId : -1 }; // = new Customer();
+  $scope.isEditing = false;
+
+  $scope.editCustomer = function(cust) {
+    $scope.isEditing = true;
+    $scope.workingCustomer = angular.copy(cust);
+  };
+
+  $scope.showEditing = function(cust) {
+    return ($scope.isEditing && ($scope.workingCustomer.customerId == cust.customerId));
+  };
+
+  $scope.revertEdit = function(cust) {
+    $scope.workingCustomer = { customerId : -1 };
+    $scope.isEditing = false;
+  };
+
+  $scope.saveEdit = function(cust) {
+    angular.extend(cust, $scope.workingCustomer);
+    $scope.isEditing = false;
+  };
+
+  $scope.keyPress = function(cust, $event) {
+    switch($event.keyCode) {
+      case 27: // Escape
+          $scope.revertEdit(cust);
+          break;
+      case 13: // Enter
+          $scope.saveEdit(cust);
+          break;
+    }
+  };
+
   $scope.retrieveCustomers = function() {
     $http.get("http://localhost:1701/api/customers").then(
         function(response) {

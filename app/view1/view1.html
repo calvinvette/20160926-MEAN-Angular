@@ -16,12 +16,37 @@ Hello, {{firstName}}!
         <th>Phone Number</th>
         <th>Email</th>
     </tr>
-    <tr ng-repeat="cust in customers track by cust.customerId">
+    <tr ng-repeat="cust in customers track by cust.customerId" ng-dblclick="editCustomer(cust);">
         <td>{{cust.customerId}}</td>
-        <td>{{cust.firstName}}</td>
-        <td>{{cust.lastName}}</td>
-        <td>{{cust.phoneNumber}}</td>
-        <td>{{cust.email}}</td>
+        <td>
+            <span ng-hide="showEditing(cust)">
+                {{cust.firstName}}
+            </span>
+            <span ng-show="showEditing(cust)">
+                <input ng-model="workingCustomer.firstName" ng-keydown="keyPress(cust, $event)">
+            </span>
+        </td>
+        <td><span ng-hide="showEditing(cust)">
+                {{cust.lastName}}
+            </span>
+            <span ng-show="showEditing(cust)">
+                <input ng-model="workingCustomer.lastName" ng-keydown="keyPress(cust, $event)">
+            </span>
+        </td>
+        <td><span ng-hide="showEditing(cust)">
+                {{cust.phoneNumber}}
+            </span>
+            <span ng-show="showEditing(cust)">
+                <input ng-model="workingCustomer.phoneNumber" ng-keydown="keyPress(cust, $event)">
+            </span>
+        </td>
+        <td><span ng-hide="showEditing(cust)">
+                {{cust.email}}
+            </span>
+            <span ng-show="showEditing(cust)">
+                <input ng-model="workingCustomer.email" ng-keydown="keyPress(cust, $event)">
+            </span>
+        </td>
         <td><button ng-click="removeCustomer(cust)">Delete</button> </td>
     </tr>
 </table>
