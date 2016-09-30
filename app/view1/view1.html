@@ -4,5 +4,23 @@ Last Name: <input ng-model="lastName"/><br/>
 Phone Number: <input ng-model="phoneNumber"/><br/>
 Email: <input ng-model="email"/><br/>
 <button ng-click="register()">Register</button><br/>
+<button ng-click="retrieveCustomers()">Load Customers</button><br/>
 <hr/>
 Hello, {{firstName}}!
+
+<table ng-show="customers.length &gt; 0">
+    <tr>
+        <th>Customer ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+    </tr>
+    <tr ng-repeat="cust in customers">
+        <td>{{cust.customerId}}</td>
+        <td>{{cust.firstName}}</td>
+        <td>{{cust.lastName}}</td>
+        <td>{{cust.phoneNumber}}</td>
+        <td>{{cust.email}}</td>
+    </tr>
+</table>
