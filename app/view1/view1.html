@@ -16,11 +16,12 @@ Hello, {{firstName}}!
         <th>Phone Number</th>
         <th>Email</th>
     </tr>
-    <tr ng-repeat="cust in customers">
+    <tr ng-repeat="cust in customers track by cust.customerId">
         <td>{{cust.customerId}}</td>
         <td>{{cust.firstName}}</td>
         <td>{{cust.lastName}}</td>
         <td>{{cust.phoneNumber}}</td>
         <td>{{cust.email}}</td>
+        <td><button ng-click="removeCustomer(cust)">Delete</button> </td>
     </tr>
 </table>

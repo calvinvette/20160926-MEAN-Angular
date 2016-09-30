@@ -22,12 +22,26 @@ angular.module('myApp.view1', ['ngRoute'])
     $http.get("http://localhost:1701/api/customers").then(
         function(response) {
           $scope.customers = response.data;
-          console.log("Customers found:");
-          console.log($scope.customers);
+          // console.log("Customers found:");
+          // console.log($scope.customers);
         },function(response) {
           console.log("Error retrieving customers: " + response.statusText);
         }
     );
+  };
+
+  $scope.removeCustomer = function(cust) {
+    console.log("Deleting...");
+    $http.delete("http://localhost:1701/api/customers/" + cust.customerId).then(
+        function(response) {
+          console.log("Deleted: ");
+          console.log(response.data);
+          $scope.customers = [];
+          $scope.retrieveCustomers();
+        }, function(response) {
+          console.log("Error deleting customer: " + response.statusText);
+        }
+    )
   };
 
   $scope.register = function() {
